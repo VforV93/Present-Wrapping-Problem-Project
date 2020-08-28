@@ -1,0 +1,5 @@
+minizinc==0.3.1
+lark
+iminizinc
+matplotlib==3.2.2
+z3-solver==4.8.8.0
