@@ -32,10 +32,9 @@ constraint
 
 
 %Symmetry breaking rules
-constraint
-        2 * (q[index_largest_p,1]) <= (pr_w - L[index_largest_p, 1]) 
-    /\  2 * (q[index_largest_p,2]) <= (pr_h - L[index_largest_p, 2])
-;
+%constraint
+%        2 * (q[index_largest_p,1]) <= (pr_w - L[index_largest_p, 1]) 
+%    /\  2 * (q[index_largest_p,2]) <= (pr_h - L[index_largest_p, 2]);
 
 %implied constraint (point 2)
 constraint (nvalue(q[PIECES,1] ++ [ q[i,1] + L[i,1] | i in PIECES ])) <= n_pieces;
