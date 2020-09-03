@@ -26,7 +26,7 @@ array[PIECES, 1..2] of var 0..max([pr_w, pr_h])-1: q; %-bottom left corner of ea
 
 
 % --- F U N C T I O N S ---
-function bool: independent_solving_on_w_possible() = sum([sum([L[j,2] | j in pieces_group_by_w[i]]) >= pr_h | i in 1..group_number]) == group_number;
+function bool: independent_solving_on_w_possible() = sum([sum([L[j,2] | j in pieces_group_by_w[i]])>= pr_h | i in 1..group_number])==group_number;
 function int: group_starting_w(int: i) = sum([number_columns_per_group[j] * total_group_width[j] | j in 1..i - 1]);
 
 
@@ -84,7 +84,6 @@ search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], dom_w_deg, ind
 solve :: search_ann  
       satisfy;
 
-output %[ show(pieces_group_by_w[1])] ++ ["\n"]
-       [ show_int(3,pieces_ordering_indexes[i]) ++ " " | i in PIECES ] ++ ["\n"] ++
-       [ show_int(3,q[i,1]) ++ " " | i in PIECES ] ++ ["\n"] ++
-       [ show_int(3,q[i,2]) ++ " " | i in PIECES ];
+output [ show(pr_w) ++ " " ++ show(pr_h)] ++ ["\n"] ++
+       [ show(n_pieces) ] ++ ["\n"] ++
+       [ show_int(3,L[i,1]) ++ " " ++ show_int(3,L[i,2]) ++ "\t" ++ show_int(3,q[i,1]) ++ " " ++show_int(3,q[i,2]) ++ "\n" | i in PIECES ]
