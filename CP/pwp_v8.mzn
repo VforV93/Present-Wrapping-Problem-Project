@@ -21,7 +21,7 @@ array[1..group_number] of int: total_group_width = [sum([L[j,1] | j in pieces_gr
 
 bool: independent_solving_on_w = independent_solving_on_w_possible(); % =false for TEST1 and TEST2. If 'true' means I renounce to the generality of the model (so it is not important to know the exact number of total solutions anymore), I want to speed up the process of finding 1 solution.
 
-% Variables
+% --- V A R I A B L E S ---
 array[PIECES, 1..2] of var 0..max([pr_w, pr_h])-1: q; %-bottom left corner of each pieces
 
 
@@ -74,12 +74,12 @@ ann: search_ann;
 %Set also 'independent_solving_on_w = false'. I want to know all the possible solutions of "each" instances.
 
 %TEST 2 & TEST3
-%search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], input_order, indomain_min);     %comment this line to use the basic search
+search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], input_order, indomain_min);     %comment this line to use the basic search
 %search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], first_fail, indomain_min);      %comment this line to use the basic search
 %search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], dom_w_deg, indomain_min, complete);        % BEST - comment this line to use the basic search
 %search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], input_order, indomain_random);  %comment this line to use the basic search
 %search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], first_fail, indomain_random);   %comment this line to use the basic search
-search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], dom_w_deg, indomain_random);    %comment this line to use the basic search
+%search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], dom_w_deg, indomain_random);    %comment this line to use the basic search
 
 solve :: search_ann  
       satisfy;
