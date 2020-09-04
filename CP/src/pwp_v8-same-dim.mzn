@@ -29,16 +29,18 @@ array[PIECES, 1..2] of var 0..max([pr_w, pr_h])-1: q; %-bottom left corner of ea
 function bool: independent_solving_on_w_possible() = sum([sum([L[j,2] | j in pieces_group_by_w[i]])>= pr_h | i in 1..group_number])==group_number;
 function int: group_starting_w(int: i) = sum([number_columns_per_group[j] * total_group_width[j] | j in 1..i - 1]);
 
-constraint forall( i, j in PIECES where i < j /\ L[i,1]==L[j,1] /\ L[i,2]==L[j,2] ) (
-  q[j,1] + L[j,1] > q[i,1] /\ ( q[i,1] + L[i,1] <= q[j,1] \/ not(q[j,2] + L[j,2]<=q[i,2] ))
-  );
-
 % --- C O N S T R A I N T S ---
 constraint cumulative(q[PIECES,1], L[PIECES, 1], L[PIECES, 2], pr_h)::domain;
 constraint cumulative(q[PIECES,2], L[PIECES, 2], L[PIECES, 1], pr_w)::domain;
 
 constraint forall (i in PIECES) ( (q[i,1] + L[i, 1]) <= pr_w  /\ (q[i,2] + L[i, 2]) <= pr_h); %-No exceeding the paper dimensions(pr_w & pr_h)
 
+% If we have rectangles ri and rj which have the same dimension we can fix the positional relation of rectangles.
+% Reference: http://ceur-ws.org/Vol-451/paper16soh.pdf. Translated them to CP version.
+constraint forall( i, j in PIECES where i < j /\ L[i,1]==L[j,1] /\ L[i,2]==L[j,2] ) (
+  q[j,1] + L[j,1] > q[i,1] /\ ( q[i,1] + L[i,1] <= q[j,1] \/ not(q[j,2] + L[j,2]<=q[i,2] ))
+  );
+  
 % Non-overlap constraints between pieces
 constraint
     forall( i, j in PIECES where i < j ) (
@@ -87,7 +89,6 @@ search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], input_order, i
 solve :: search_ann  
       satisfy;
 
-output %[ show(ppp) ] ++ ["\n"]
-       [ show(pr_w) ++ " " ++ show(pr_h)] ++ ["\n"] ++
+output [ show(pr_w) ++ " " ++ show(pr_h)] ++ ["\n"] ++
        [ show(n_pieces) ] ++ ["\n"] ++
        [ show_int(3,L[i,1]) ++ " " ++ show_int(3,L[i,2]) ++ "\t" ++ show_int(3,q[i,1]) ++ " " ++show_int(3,q[i,2]) ++ "\n" | i in PIECES ]
