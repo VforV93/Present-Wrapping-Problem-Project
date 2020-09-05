@@ -95,7 +95,7 @@ The same test as before but with the **'Symmetry breaking rules'** enabled.
 
 **With the default search the best model is: incremental order pieces**
 
-###TEST 2
+### TEST 2
 Number of failures when looking for all solutions(with symm breaking) using different search heuristics (managed the descending order inside the model based on the area value).
 
 - (**as before**) Inside the model(**pwp_v8.mzn**) set 'bool: independent_solving_on_w = false;'(line 22)
@@ -127,7 +127,7 @@ bold value : time limit reached(5 minutes)
 
 **DomWdeg-min: The best on the 5 largest instances**
 
-###TEST 3
+### TEST 3
 time and failures to find at least one solution(the first one) for each instance.
 
 - Inside the model(**pwp_v8.mzn**) set 'bool: independent_solving_on_w = independent_solving_on_w_possible();'(line 22)
@@ -177,11 +177,11 @@ time and failures to find at least one solution(the first one) for each instance
 **Input-min: The best search strategy**.\
 Using that searching strategy I am able to solve all the instances in 13 seconds(with 312514 as total **failures**)
 
-###ROTATION (point 5)
+### ROTATION (point 5)
 A second model has been implemented taking into consideration the possible rotation of each pieces. For more details on the model see **Model.pdf**. \
 As for the main model(pwp_v8) it is possible to load any instance we want and to run the **"pwp_v8-rot.mzn"** model. All the solutions are printed out as demonstration. 
 
-###SAME DIMENSION (point 6)
+### SAME DIMENSION (point 6)
 A third model has been implemented taking into consideration the possibility of having instances in which there are 2 or more pieces with the same dimension(widths and heights). For more details on the model see **Model.pdf**.\
 A specific instance, *8x8-same-dim.txt* has been created and added to the *Instances* folder.\
 As for the main model(pwp_v8) it is possible to load any instance we want 
