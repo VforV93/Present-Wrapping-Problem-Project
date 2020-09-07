@@ -48,7 +48,7 @@ Number of solutions (#) and failures when looking for all solutions to some inst
 \- : over 5 minutes of searching\
 / : unknown value
 
-| n | # | v8_no-ord time | v8_no-ord failures | v8_ord time | v8_ord failures | v8_decr-ord time | v8_decr-ord failures |
+| n | # | v8_no-ord time[s] | v8_no-ord failures | v8_ord time[s] | v8_ord failures | v8_decr-ord time[s] | v8_decr-ord failures |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 8x8 | 12 | 0 | 2 | 0 | 2 | 0 | 3 |
 | 9x9 | 24 | .001 | 4 | .001| 4 | .001| 21 |
@@ -76,7 +76,7 @@ The same test as before but with the **'Symmetry breaking rules'** enabled.
 \- : over 5 minutes of searching\
 / : unknown value
 
-| n | # | v8_no-ord time With symm | v8_no-ord failures With symm | v8_ord time With symm | v8_ord failures With symm | v8_decr-ord time With symm | v8_decr-ord failures With symm |
+| n | # | v8_no-ord time[s] With symm | v8_no-ord failures With symm | v8_ord time[s] With symm | v8_ord failures With symm | v8_decr-ord time[s] With symm | v8_decr-ord failures With symm |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 |8x8 | 3 | 0 | 1 | 0 | 1 | 0 | 1|
 |9x9 | 16 | 0 | 3 | .001 | 3 | .001 | 10|
@@ -137,7 +137,7 @@ time and failures to find at least one solution(the first one) for each instance
 #### Results
 \- : over 5 minutes of searching\
 
-|n | Input-min **time** | Input-min **failures** | ff-min **time** | ff-min **failures** | DomWdeg-min **time** | DomWdeg-min **failures** | Input-rand **time** | Input-rand **failures** | ff-rand **time** | ff-rand **failures** | DomWdeg-rand **time** | DomWdeg-rand **failures**|
+|n | Input-min **time**[s] | Input-min **failures** | ff-min **time**[s] | ff-min **failures** | DomWdeg-min **time**[s] | DomWdeg-min **failures** | Input-rand **time**[s] | Input-rand **failures** | ff-rand **time**[s] | ff-rand **failures** | DomWdeg-rand **time**[s] | DomWdeg-rand **failures**|
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 |8x8 | 0 | 0 | 0 | 0 | 0 | 0 | .001 | 1 | .001 | 1 | 0 | 0|
 |9x9 | 0 | 0 | .001 | 0 | .001 | 0 | 0 | 0 | 0 | 0 | 0 | 0|
@@ -172,7 +172,7 @@ time and failures to find at least one solution(the first one) for each instance
 |38x38 | .025 | 595 | .002 | 21 | .001 | 6 | .034 | 854 | .007 | 126 | .007 | 146|
 |39x39 | .003 | 0 | .002 | 0 | .002 | 0 | .181 | 2163 | .02 | 154 | .021 | 154|
 |40x40 | .001 | 14 | .002 | 14 | .001 | 1 | .001 | 2 | .001 | 2 | .001 | 2|
-| Tot | **13.052** | **312514** | 45.663 | 947511 | 34.87 | 671507 |
+| Tot: | **13.052**s | **312514** | 45.663 | 947511 | 34.87 | 671507 |
 
 **Input-min: The best search strategy**.\
 Using that searching strategy I am able to solve all the instances in 13 seconds(with 312514 as total **failures**)
@@ -182,9 +182,76 @@ A second model has been implemented taking into consideration the possible rotat
 As for the main model(pwp_v8) it is possible to load any instance we want and to run the **"pwp_v8-rot.mzn"** model. All the solutions are printed out as demonstration. 
 
 ### SAME DIMENSION (point 6)
-A third model has been implemented taking into consideration the possibility of having instances in which there are 2 or more pieces with the same dimension(widths and heights). For more details on the model see **Model.pdf**.\
+A third model has been implemented taking into consideration the possibility of having instances in which there are 2 or more pieces with the same dimension(same widths and heights). For more details on the model see **Model.pdf**.\
 A specific instance, *8x8-same-dim.txt* has been created and added to the *Instances* folder.\
-As for the main model(pwp_v8) it is possible to load any instance we want 
+As for the main model(pwp_v8) it is possible to load any instance we want before running the "**pwp_v8-same-dim**" model. All the solutions are printed out as demonstration.
+
+## Running the SMT model
+At first it is necessary to run all the cells before the CP part of the notebook (*imports*-1° cell, *Accessory Functions* cells)\
+The general use of the model is the following:
+- having a reference function model (e.g. *create_model*)
+- (the same in CP) having an instance **instance_name**="instance name"
+- (the same in CP) load the instance in order to have: **pr_w**(paper roll's width), **pr_h**(paper roll's height), **n_pieces**(number of pieces in that instance), **L**(the dimension of each pieces)
+- running the function model(*model = create_model(pr_w, pr_h, n_pieces, L)*) using python(inside the notebook) to get the model
+- instantiating the Solver, adding the model and running the solver(*res = s.check()*)
+- (the same in CP) using the *print_solutions* function to have a graphically solution/s printing
+- (the same in CP) using the *save_solution* function to store locally one or more solutions for that instance
+
+For all the instances are been founded at least one solution in an acceptable time.
+
+|n | time[s] | 
+| --- | --- | 
+|8x8 | .011 | 
+|9x9 | .012 | 
+|10x10 | .016 |
+|11x11 | .021 |
+|12x12 | .035 |
+|13x13 | .097 |
+|14x14 | .047 |
+|15x15 | .028 |
+|16x16 | .097 |
+|17x17 | .167 |
+|18x18 | 4.674 |
+|19x19 | 2.258 |
+|20x20 | .711 |
+|21x21 | 2.332 |
+|22x22 | 2.321 |
+|23x23 | 30.877 |
+|24x24 | 13.945 |
+|25x25 | 7.466 |
+|26x26 | 30.373 |
+|27x27 | 30.633 |
+|28x28 | 29.578 |
+|29x29 | 222.282 |
+|30x30 | 26.399 |
+|31x31 | 17.071 |
+|32x32 | 184.824 |
+|33x33 | 31.623 |
+|34x34 | 25.798 |
+|35x35 | 28.494 |
+|36x36 | 26.680 |
+|37x37 | 322.940 |
+|38x38 | 1.165 |
+|39x39 | 316.761 |
+|40x40 | 22.371 |
+| Tot: | 23' 2.107'' |
+
+### ROTATION (point 5)
+A second function model(**create_model_with_rotation**) has been implemented taking into consideration the possible rotation of each pieces. For more details on the model see **Model.pdf**. \
+As for the main function model(create_model) it is possible to load any instance we want and to use the solver to get the solution. A solution of the 9x9 instance is printed out as demonstration. 
+
+### SAME DIMENSION (point 6)
+A third function model has been implemented(**create_model_same_dim**) taking into consideration the possibility of having instances in which there are 2 or more pieces with the same dimension(same widths and heights). For more details on the model see **Model.pdf**.\
+A specific instance, *8x8-same-dim.txt* has been created and added to the *Instances* folder.\
+As for the main function model(create_model) it is possible to load any instance we want before using the solver to get the solution. A solution is printed out as demonstration.
+[You can use numbers for reference-style link definitions][1]
+
+### References
+- [Exhaustive approaches to 2D rectangular perfect packings](https://www.eecs.harvard.edu/~michaelm/postscripts/ipl2004.pdf)
+- [A new constraint programming approach for the orthogonal packing problem](http://vmk.ugatu.ac.ru/c%26p/article/new_2009/2D_OPP_clautiaux_constraint_progr.pdf)
+- [Optimal Rectangle Packing: An Absolute Placement Approach](https://arxiv.org/ftp/arxiv/papers/1402/1402.0557.pdf)
+- [The SMT-LIB Standard](http://smtlib.cs.uiowa.edu/papers/smt-lib-reference-v2.0-r10.12.21.pdf)
+- [A SAT-based Method for Solving the Two-dimensional Strip Packing Problem](http://ceur-ws.org/Vol-451/paper16soh.pdf)
 
 ## Author
 * **Filippo Lo Bue**
