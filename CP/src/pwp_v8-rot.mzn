@@ -19,7 +19,7 @@ array[PIECES] of var 0..1: rot; %0: no ration, 1: 90° rotation
 % --- F U N C T I O N S ---
 function var int: get_dim(int: i, int: d) = (L[i, d]*(1-rot[i]) + (L[i, 3-d]*rot[i]));  % according to the rotation, return the correct value of the width and height of a given piece(i)
 
-% --- C O N S T R A I N T S ---   [ (L[i, 1]*(1-rot[i])) + (L[i, 2]*rot[i])  | i in PIECES]
+% --- C O N S T R A I N T S ---
 constraint cumulative(q[PIECES,1], [ get_dim(i, 1) | i in PIECES ], [ get_dim(i, 2) | i in PIECES ], pr_h)::domain;
 constraint cumulative(q[PIECES,2], [ get_dim(i, 2) | i in PIECES ], [ get_dim(i, 1) | i in PIECES ], pr_w)::domain;
 

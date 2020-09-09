@@ -248,6 +248,7 @@ As for the main function model(create_model) it is possible to load any instance
 
 ### References
 - [Exhaustive approaches to 2D rectangular perfect packings](https://www.eecs.harvard.edu/~michaelm/postscripts/ipl2004.pdf)
+- [2008-Search Strategies for Rectangle Packing-Helmut Simonis and Barry O’Sullivan](https://link.springer.com/chapter/10.1007/978-3-540-85958-1_4)
 - [A new constraint programming approach for the orthogonal packing problem](http://vmk.ugatu.ac.ru/c%26p/article/new_2009/2D_OPP_clautiaux_constraint_progr.pdf)
 - [Optimal Rectangle Packing: An Absolute Placement Approach](https://arxiv.org/ftp/arxiv/papers/1402/1402.0557.pdf)
 - [The SMT-LIB Standard](http://smtlib.cs.uiowa.edu/papers/smt-lib-reference-v2.0-r10.12.21.pdf)
