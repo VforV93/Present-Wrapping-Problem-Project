@@ -18,6 +18,8 @@ array[PIECES] of var 0..1: rot; %0: no ration, 1: 90° rotation
 
 % --- F U N C T I O N S ---
 function var int: get_dim(int: i, int: d) = (L[i, d]*(1-rot[i]) + (L[i, 3-d]*rot[i]));  % according to the rotation, return the correct value of the width and height of a given piece(i)
+function array[PIECES] of var int: get_q(int: d) = [q[i, d] | i in PIECES];
+function array[PIECES] of var int: L_axis(int: d) = [get_dim(i,d) | i in PIECES];
 
 % --- C O N S T R A I N T S ---
 constraint cumulative(q[PIECES,1], [ get_dim(i, 1) | i in PIECES ], [ get_dim(i, 2) | i in PIECES ], pr_h)::domain;
@@ -26,15 +28,15 @@ constraint cumulative(q[PIECES,2], [ get_dim(i, 2) | i in PIECES ], [ get_dim(i,
 constraint forall (i in PIECES) ( (q[i,1] + get_dim(i, 1)) <= pr_w  /\ (q[i,2] + get_dim(i, 2)) <= pr_h); %-No exceeding the paper dimensions(pr_w & pr_h)
 
 % Non-overlap constraints between pieces
-constraint
-    forall( i, j in PIECES where i < j ) (
-         q[i,1] + get_dim(i, 1) <= q[j,1] 
-    \/   q[j,1] + get_dim(j, 1) <= q[i,1] 
-    \/   q[i,2] + get_dim(i, 2) <= q[j,2]
-    \/   q[j,2] + get_dim(j, 2) <= q[i,2]
-    );
+%constraint
+%    forall( i, j in PIECES where i < j ) (
+%         q[i,1] + get_dim(i, 1) <= q[j,1] 
+%    \/   q[j,1] + get_dim(j, 1) <= q[i,1] 
+%    \/   q[i,2] + get_dim(i, 2) <= q[j,2]
+%    \/   q[j,2] + get_dim(j, 2) <= q[i,2]
+%    );
 % or
-%constraint diffn_k(q, L);
+constraint diffn(get_q(1),get_q(2),L_axis(1),L_axis(2));
 
 % no rotation for the square pieces(w == h)
 constraint
@@ -43,8 +45,7 @@ constraint
 %Symmetry breaking rules --TEST1 comment the following 3 lines
 constraint 
         2 * (q[index_largest_p,1]) <= (pr_w - get_dim(index_largest_p, 1)) 
-    /\  2 * (q[index_largest_p,2]) <= (pr_h - get_dim(index_largest_p, 2));
-  
+    /\  2 * (q[index_largest_p,2]) <= (pr_h - get_dim(index_largest_p, 2));   
     
 ann: search_ann;
 
