@@ -70,9 +70,9 @@ ann: search_ann;
 %Set also 'independent_solving_on_w = false'. I want to know all the possible solutions of "each" instances.
 
 %TEST 2 & TEST3
-search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], input_order, indomain_min);     % BEST - comment this line to use the basic search  
+%search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], input_order, indomain_min);     % BEST - comment this line to use the basic search  
 %search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], first_fail, indomain_min);      %comment this line to use the basic search
-%search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], dom_w_deg, indomain_min, complete); %comment this line to use the basic search
+search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], dom_w_deg, indomain_min, complete); %comment this line to use the basic search
 %search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], input_order, indomain_random);  %comment this line to use the basic search
 %search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], first_fail, indomain_random);   %comment this line to use the basic search
 %search_ann = int_search( [q[i,1] | i in pieces_ordering_indexes], dom_w_deg, indomain_random);    %comment this line to use the basic search

@@ -21,6 +21,7 @@ array[1..group_number] of int: total_group_width = [sum([L[j,1] | j in pieces_gr
 
 bool: independent_solving_on_w = independent_solving_on_w_possible(); % =false for TEST1 and TEST2. If 'true' means I renounce to the generality of the model (so it is not important to know the exact number of total solutions anymore), I want to speed up the process of finding 1 solution.
 
+
 % --- V A R I A B L E S ---
 array[PIECES, 1..2] of var 0..max([pr_w, pr_h])-1: q; %-bottom left corner of each pieces
 
@@ -30,6 +31,7 @@ function bool: independent_solving_on_w_possible() = sum([sum([L[j,2] | j in pie
 function int: group_starting_w(int: i) = sum([number_columns_per_group[j] * total_group_width[j] | j in 1..i - 1]);
 
 % --- C O N S T R A I N T S ---
+% --- Point 2 ---
 constraint cumulative(q[PIECES,1], L[PIECES, 1], L[PIECES, 2], pr_h)::domain;
 constraint cumulative(q[PIECES,2], L[PIECES, 2], L[PIECES, 1], pr_w)::domain;
 
@@ -38,9 +40,9 @@ constraint forall (i in PIECES) ( (q[i,1] + L[i, 1]) <= pr_w  /\ (q[i,2] + L[i, 
 % If we have rectangles ri and rj which have the same dimension we can fix the positional relation of rectangles.
 % Reference: http://ceur-ws.org/Vol-451/paper16soh.pdf. Translated them to CP version.
 constraint forall( i, j in PIECES where i < j /\ L[i,1]==L[j,1] /\ L[i,2]==L[j,2] ) (
-  q[j,1] + L[j,1] > q[i,1] /\ ( q[i,1] + L[i,1] <= q[j,1] \/ not(q[j,2] + L[j,2]<=q[i,2] ))
+  lex_less(q[i,1..2] , q[j,1..2])
   );
-  
+
 % Non-overlap constraints between pieces
 %constraint
 %    forall( i, j in PIECES where i < j ) (
