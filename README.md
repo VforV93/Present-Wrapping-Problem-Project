@@ -39,7 +39,7 @@ The general use of the model is the following:
 ### TEST 1.1
 Number of solutions (#) and failures when looking for all solutions to some instances of the PW problem, comparing the ordering of pieces or not, using the default search.
 
-- Inside the model(**pwp_v8.mzn**) set 'bool: independent_solving_on_w = false;'(line 22)
+- Inside the model(**pwp_v9.mzn**) set 'bool: independent_solving_on_w = false;'(line 22)
 - Comment all the search_ann lines at the end of the model(from line 77 to 82)
 - Comment also the **"Symmetry breaking rules"** part(from line 52 to 54)
 - run the test three times changing the value to the variable **ord_type**('no-ord'|'ord'|'decr-ord')
@@ -67,7 +67,7 @@ Number of solutions (#) and failures when looking for all solutions to some inst
 ### TEST 1.2
 The same test as before but with the **'Symmetry breaking rules'** enabled.
 
-- (**as before**) Inside the model(**pwp_v8.mzn**) set 'bool: independent_solving_on_w = false;'(line 22)
+- (**as before**) Inside the model(**pwp_v9.mzn**) set 'bool: independent_solving_on_w = false;'(line 22)
 - (**as before**) Comment all the search_ann lines at the end of the model(from line 77 to 82)
 - **Uncomment** also the **"Symmetry breaking rules"** part(from line 52 to 54)
 - (**as before**) run the test three times changing the value to the variable **ord_type**('no-ord'|'ord'|'decr-ord')
@@ -98,7 +98,7 @@ The same test as before but with the **'Symmetry breaking rules'** enabled.
 ### TEST 2
 Number of failures when looking for all solutions(with symm breaking) using different search heuristics (managed the descending order inside the model based on the area value).
 
-- (**as before**) Inside the model(**pwp_v8.mzn**) set 'bool: independent_solving_on_w = false;'(line 22)
+- (**as before**) Inside the model(**pwp_v9.mzn**) set 'bool: independent_solving_on_w = false;'(line 22)
 - Comment and uncomment by hands from the first search_ann line to the last (from line 77 to 82)
 - (**as before**) **Uncomment** also the **"Symmetry breaking rules"** part(from line 52 to 54)
 - run the test two times changing the value to the variable **ord_type**('ord'|'decr-ord')
@@ -130,7 +130,7 @@ bold value : time limit reached(5 minutes)
 ### TEST 3
 time and failures to find at least one solution(the first one) for each instance.
 
-- Inside the model(**pwp_v8.mzn**) set 'bool: independent_solving_on_w = independent_solving_on_w_possible();'(line 22)
+- Inside the model(**pwp_v9.mzn**) set 'bool: independent_solving_on_w = independent_solving_on_w_possible();'(line 22)
 - (**as before**) **Uncomment** also the **"Symmetry breaking rules"** part(from line 52 to 54)
 - run the test six times changing the searching strategy by hands(I-min, ff-min, DomWdeg-min, I-rand, ff-rand, DomWdeg-rand)
 
@@ -179,12 +179,12 @@ Using that searching strategy I am able to solve all the instances in 13 seconds
 
 ### ROTATION (point 5)
 A second model has been implemented taking into consideration the possible rotation of each pieces. For more details on the model see **Model.pdf**. \
-As for the main model(pwp_v8) it is possible to load any instance we want and to run the **"pwp_v8-rot.mzn"** model. All the solutions are printed out as demonstration. 
+As for the main model(pwp_v9) it is possible to load any instance we want and to run the **"pwp_v9-rot.mzn"** model. All the solutions are printed out as demonstration. 
 
 ### SAME DIMENSION (point 6)
 A third model has been implemented taking into consideration the possibility of having instances in which there are 2 or more pieces with the same dimension(same widths and heights). For more details on the model see **Model.pdf**.\
 A specific instance, *8x8-same-dim.txt* has been created and added to the *Instances* folder.\
-As for the main model(pwp_v8) it is possible to load any instance we want before running the "**pwp_v8-same-dim**" model. All the solutions are printed out as demonstration.
+As for the main model(pwp_v9) it is possible to load any instance we want before running the "**pwp_v9-same-dim**" model. All the solutions are printed out as demonstration.
 
 ## Running the SMT model
 At first it is necessary to run all the cells before the CP part of the notebook (*imports*-1° cell, *Accessory Functions* cells)\
@@ -253,6 +253,6 @@ As for the main function model(create_model) it is possible to load any instance
 - [Optimal Rectangle Packing: An Absolute Placement Approach](https://arxiv.org/ftp/arxiv/papers/1402/1402.0557.pdf)
 - [The SMT-LIB Standard](http://smtlib.cs.uiowa.edu/papers/smt-lib-reference-v2.0-r10.12.21.pdf)
 - [A SAT-based Method for Solving the Two-dimensional Strip Packing Problem](http://ceur-ws.org/Vol-451/paper16soh.pdf)
-
+- [Introduction to SMT Solving CSP’s with SMT](https://www.cs.upc.edu/~erodri/webpage/papers/bergen2.pdf)
 ## Author
 * **Filippo Lo Bue**
