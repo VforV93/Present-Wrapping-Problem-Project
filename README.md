@@ -16,7 +16,7 @@ Anaconda 1.9.12
 
 ### Installing
 
-Create a new conda enviroment
+Create a new conda environment
 ```
 conda create -n PWP python=3.6
 ```
