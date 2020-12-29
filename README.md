@@ -1,6 +1,18 @@
 # Present-Wrapping-Problem-Project
 Project Work - Combinatorial Decision Making and Optimization
 
+### Description of the Problem
+
+It is a common practice that a private business rewards its loyal clients with presents, which are typically wrapped in a costly corporate paper covered
+with the logo of the business. Imagine that you work for such a business which wants to limit the overall amount of paper that can be used for this
+purpose, in order to reduce the associated expenses.\
+As the combinatorial decision and optimization expert, you are assigned to solve the **Present Wrapping Problem (PWP)**: given a wrapping paper roll of a certain dimension and a list of presents, decide how to cut off pieces of paper so that all the presents can be wrapped.\
+Consider that each present is described by the dimensions of the piece of paper needed to wrap it. Moreover, each
+necessary piece of paper cannot be rotated when cutting off, to respect the direction of the patterns in the paper.\
+\
+Model and solve the problem with _Constraint Programming (CP)_, and propositional _SATisfiability (SAT)_ or its extension to
+_Satisfiability Modulo Theories (SMT)_. 
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
